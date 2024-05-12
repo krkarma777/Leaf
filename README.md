@@ -57,7 +57,7 @@ Get involved! We're excited to welcome new contributors. Check out our [CONTRIBU
 
 ## License
 
-Project Leaf is open-sourced under the MIT license. [Read here](https://github.com/krkarma777/Leaff/LICENSE) for more details.
+Project Leaf is open-sourced under the MIT license. [Read here](https://github.com/krkarma777/Leaf/LICENSE) for more details.
 
 ## Get Support
 
