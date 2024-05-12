@@ -1,6 +1,7 @@
 package com.leaf.domain.entities;
 
 import com.leaf.domain.dtos.UserCreateRequestDTO;
+import com.leaf.domain.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,9 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private UserRole role = UserRole.USER;
 
     public User(UserCreateRequestDTO requestDTO) {
         this.email = requestDTO.getEmail();
