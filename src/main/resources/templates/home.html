@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Developer Collaboration Tool</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
-home test
+<header th:include="common/header :: header"></header>
+<nav th:include="common/navbar :: navbar"></nav>
+
+<div class="dashboard">
+    <div class="status-panel">
+        <h2>Project Status</h2>
+        <div class="status-details">
+            <!-- Project status widgets -->
+        </div>
+    </div>
+    <div class="activity-panel">
+        <h2>Recent Activity</h2>
+        <div class="activity-list">
+            <!-- List recent activities -->
+        </div>
+    </div>
+    <div class="notice-panel">
+        <h2>Announcements</h2>
+        <div class="notice-content">
+            <!-- Announcements -->
+        </div>
+    </div>
+</div>
+
+<footer th:include="common/footer :: footer"></footer>
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>
