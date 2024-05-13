@@ -1,30 +1,30 @@
-/* Dashboard styles */
-.dashboard {
-    padding: 20px; /* Add padding */
-    margin-top: 20px; /* Add top margin */
-}
-
-/* Panel styles */
-.status-panel,
-.activity-panel,
-.notice-panel {
-    background-color: white; /* White background */
-    margin-bottom: 20px; /* Add bottom margin */
-    padding: 20px; /* Add padding */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
-}
-
-/* Heading styles */
 h2 {
-    color: #20232A; /* Dark text color */
-    border-bottom: 2px solid #61DAFB; /* Blue bottom border */
-    padding-bottom: 10px; /* Add bottom padding */
+    color: var(--dark-bg);
+    border-bottom: 2px solid #61DAFB;
 }
 
-/* Content styles */
-.status-details,
-.activity-list,
-.notice-content {
-    padding-top: 10px; /* Add top padding */
+/* Additional styles for a modern look */
+.gradient-custom {
+    background: linear-gradient(to right, #56ab2f, #a8e063); /* Green gradient */
+    color: white;
+}
+.card-modern {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: none;
+}
+.card-header-modern {
+    background: transparent;
+    border-bottom: none;
+    color: #333;
+    font-size: 1.2rem;
+}
+.card-body-modern {
+    font-size: 1rem;
+}
+.card-modern ul {
+    padding-left: 20px;
+}
+.card-modern li {
+    margin-bottom: 10px;
 }
