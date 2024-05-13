@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Navbar Fragment</title>
+</head>
+<body>
+    <nav th:fragment="navbar">
+        <ul>
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/projects}">Projects</a></li>
+            <li><a th:href="@{/chat}">Chat</a></li>
+            <li><a th:href="@{/files}">Files</a></li>
+            <li><a th:href="@{/settings}">Settings</a></li>
+        </ul>
+    </nav>
+</body>
+</html>
