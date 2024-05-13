@@ -6,6 +6,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/home.css}" />
     <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <style>
+        /* Additional custom styles */
+        .icon-size { font-size: 1.5rem; }
+    </style>
 </head>
 <body>
 <header th:insert="~{common/header :: header}"></header>
@@ -17,11 +21,24 @@
             <div class="card card-modern shadow-lg mb-5">
                 <div class="card-header gradient-custom">Project Status</div>
                 <div class="card-body card-body-modern">
-                    <ul>
-                        <li>Overall Progress: 75%</li>
-                        <li>Tasks Completed: 30/40</li>
-                        <li>Current Issues: 5 unresolved</li>
-                    </ul>
+                    <div class="mb-3">
+                        <span class="badge bg-success icon-size"><i class="bi bi-graph-up"></i></span>
+                        Overall Progress: 75%
+                        <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <span class="badge bg-primary icon-size"><i class="bi bi-list-check"></i></span>
+                        Tasks Completed: 30/40
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="40"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="badge bg-danger icon-size"><i class="bi bi-exclamation-triangle-fill"></i></span>
+                        Current Issues: 5 unresolved
+                    </div>
                 </div>
             </div>
         </div>
@@ -29,10 +46,10 @@
             <div class="card card-modern shadow-lg mb-5">
                 <div class="card-header gradient-custom">Recent Activity</div>
                 <div class="card-body card-body-modern">
-                    <ul>
-                        <li>John updated task "Database Optimization"</li>
-                        <li>Sarah committed code to "Feature Y"</li>
-                        <li>Mike posted a new discussion thread</li>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-arrow-up-circle-fill text-success"></i> John updated task "Database Optimization"</li>
+                        <li class="mb-2"><i class="bi bi-arrow-repeat text-primary"></i> Sarah committed code to "Feature Y"</li>
+                        <li><i class="bi bi-chat-right-dots-fill text-warning"></i> Mike posted a new discussion thread</li>
                     </ul>
                 </div>
             </div>
@@ -41,8 +58,8 @@
             <div class="card card-modern shadow-lg mb-5">
                 <div class="card-header gradient-custom">Announcements</div>
                 <div class="card-body card-body-modern">
-                    <p>Team meeting scheduled for Monday at 10 AM.</p>
-                    <p>New version release next week.</p>
+                    <p><i class="bi bi-megaphone-fill pe-2"></i> Team meeting scheduled for Monday at 10 AM.</p>
+                    <p><i class="bi bi-calendar-event-fill pe-2"></i> New version release next week.</p>
                 </div>
             </div>
         </div>
