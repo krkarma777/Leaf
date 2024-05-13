@@ -1,4 +1,5 @@
 # Project Leaf 🍃
+![image](https://github.com/krkarma777/Leaf/assets/149022496/dbcd3feb-9b42-416a-88d9-e481bf927994)
 
 Welcome to Project Leaf, where simplicity meets functionality. Our cutting-edge platform merges the robustness of Slack, Jira, and Notion, delivering an all-in-one solution for dynamic team collaboration and project management.
 
