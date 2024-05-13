@@ -46,20 +46,47 @@
             <div class="card card-modern shadow-lg mb-5">
                 <div class="card-header gradient-custom">Recent Activity</div>
                 <div class="card-body card-body-modern">
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><i class="bi bi-arrow-up-circle-fill text-success"></i> John updated task "Database Optimization"</li>
-                        <li class="mb-2"><i class="bi bi-arrow-repeat text-primary"></i> Sarah committed code to "Feature Y"</li>
-                        <li><i class="bi bi-chat-right-dots-fill text-warning"></i> Mike posted a new discussion thread</li>
+                    <ul class="timeline">
+                        <li class="timeline-item">
+                            <div class="timeline-content">
+                                <i class="bi bi-arrow-up-circle-fill text-success me-2"></i>
+                                <strong class="text-primary">John</strong> updated task "<strong>Database Optimization</strong>"
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-content">
+                                <i class="bi bi-arrow-repeat text-primary me-2"></i>
+                                <strong class="text-warning">Sarah</strong> committed code to "<strong>Feature Y</strong>"
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-content">
+                                <i class="bi bi-chat-right-dots-fill text-primary me-2"></i>
+                                <strong class="text-info">Mike</strong> shared an article: "<strong>10 Tips for Better Code Reviews</strong>"
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-content">
+                                <i class="bi bi-chat-right-dots-fill text-primary me-2"></i>
+                                <strong class="text-success">Sarah</strong> created a new task: "<strong>Implement User Authentication</strong>"
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-content">
+                                <i class="bi bi-chat-right-dots-fill text-primary me-2"></i>
+                                <strong class="text-danger">John</strong> updated the project timeline
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card card-modern shadow-lg mb-5">
+            <div class="card card-modern shadow-lg mb-5 announcement-card">
                 <div class="card-header gradient-custom">Announcements</div>
-                <div class="card-body card-body-modern">
-                    <p><i class="bi bi-megaphone-fill pe-2"></i> Team meeting scheduled for Monday at 10 AM.</p>
-                    <p><i class="bi bi-calendar-event-fill pe-2"></i> New version release next week.</p>
+                <div class="card-body card-body-modern announcement-content">
+                    <p><i class="bi bi-megaphone-fill pe-2 announcement-icon"></i> Team meeting scheduled for <strong>Monday at 10 AM</strong>.</p>
+                    <p><i class="bi bi-calendar-event-fill pe-2 announcement-icon"></i> New version release <strong>next week</strong>.</p>
                 </div>
             </div>
         </div>
