@@ -6,8 +6,8 @@
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
-<header th:include="common/header :: header"></header>
-<nav th:include="common/navbar :: navbar"></nav>
+<header th:insert="~{common/header :: header}"></header>
+<nav th:insert="~{common/navbar :: navbar}"></nav>
 
 <div class="dashboard">
     <div class="status-panel">
@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<footer th:include="common/footer :: footer"></footer>
+<footer th:insert="~{common/footer :: footer}"></footer>
 <script th:src="@{/js/script.js}"></script>
 </body>
 </html>
