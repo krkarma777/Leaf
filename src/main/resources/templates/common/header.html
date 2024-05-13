@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Header Fragment</title>
+</head>
+<body>
+<header>
+    <div th:fragment="header">
+        <a href="/" class="logo">
+            <img th:src="@{/images/logo.png}" alt="Logo"/>
+        </a>
+        <h1>DevCollab</h1>
+        <div class="user-info">
+            <img th:src="@{/images/user-profile.png}" alt="User Profile"/>
+            <span>Username</span>
+            <a href="/logout">Logout</a>
+        </div>
+    </div>
+</header>
+</body>
+</html>
