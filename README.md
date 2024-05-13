@@ -54,7 +54,7 @@ Check our [Wiki](https://github.com/krkarma777/Leaf/wiki) for detailed documenta
 
 ## Join Our Community
 
-Get involved! We're excited to welcome new contributors. Check out our [CONTRIBUTING.md](https://github.com/krkarma777/Leaf/CONTRIBUTING.md) for how to start.
+Get involved! We're excited to welcome new contributors. Check out our [CONTRIBUTING.md](https://github.com/krkarma777/Leaf/blob/master/CONTRIBUTING.md) for how to start.
 
 ## License
 
