@@ -1,4 +1,4 @@
-/* 기본 폰트와 배경 색상 */
+/* Body styles */
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #F5F5F7;
@@ -7,7 +7,7 @@ body {
     padding: 0;
 }
 
-/* 헤더 스타일 */
+/* Header styles */
 header {
     background-color: #20232A;
     color: #61DAFB;
@@ -16,7 +16,7 @@ header {
     font-size: 24px;
 }
 
-/* 네비게이션 바 스타일 */
+/* Navigation styles */
 nav ul {
     list-style-type: none;
     margin: 0;
@@ -41,7 +41,7 @@ nav ul li a:hover {
     background-color: #555;
 }
 
-/* 푸터 스타일 */
+/* Footer styles */
 footer {
     background-color: #20232A;
     color: white;

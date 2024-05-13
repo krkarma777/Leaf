@@ -1,24 +1,30 @@
-/* 대시보드 스타일 */
+/* Dashboard styles */
 .dashboard {
-    padding: 20px;
-    margin-top: 20px;
+    padding: 20px; /* Add padding */
+    margin-top: 20px; /* Add top margin */
 }
 
-/* 각 패널 스타일 */
-.status-panel, .activity-panel, .notice-panel {
-    background-color: white;
-    margin-bottom: 20px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* Panel styles */
+.status-panel,
+.activity-panel,
+.notice-panel {
+    background-color: white; /* White background */
+    margin-bottom: 20px; /* Add bottom margin */
+    padding: 20px; /* Add padding */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow effect */
 }
 
+/* Heading styles */
 h2 {
-    color: #20232A;
-    border-bottom: 2px solid #61DAFB;
-    padding-bottom: 10px;
+    color: #20232A; /* Dark text color */
+    border-bottom: 2px solid #61DAFB; /* Blue bottom border */
+    padding-bottom: 10px; /* Add bottom padding */
 }
 
-.status-details, .activity-list, .notice-content {
-    padding-top: 10px;
+/* Content styles */
+.status-details,
+.activity-list,
+.notice-content {
+    padding-top: 10px; /* Add top padding */
 }
