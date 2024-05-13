@@ -1,10 +1,106 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Leaf</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/home.css}" />
+    <link rel="stylesheet" th:href="@{/css/common.css}" />
+    <style>
+        /* Additional custom styles */
+        .icon-size { font-size: 1.5rem; }
+    </style>
 </head>
 <body>
-home test
+<header th:insert="~{common/header :: header}"></header>
+<nav th:insert="~{common/navbar :: navbar}"></nav>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card card-modern shadow-lg mb-5">
+                <div class="card-header gradient-custom">Project Status</div>
+                <div class="card-body card-body-modern">
+                    <div class="mb-3">
+                        <span class="badge bg-success icon-size"><i class="bi bi-graph-up"></i></span>
+                        Overall Progress: 75%
+                        <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <span class="badge bg-primary icon-size"><i class="bi bi-list-check"></i></span>
+                        Tasks Completed: 30/40
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="40"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="badge bg-danger icon-size"><i class="bi bi-exclamation-triangle-fill"></i></span>
+                        Current Issues: 5 unresolved
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-modern shadow-lg mb-5">
+                <div class="card-header gradient-custom">Recent Activity</div>
+                <div class="card-body card-body-modern">
+                    <ul class="timeline">
+                        <li class="timeline-item">
+                            <div class="timeline-content">
+                                <i class="bi bi-arrow-up-circle-fill text-success me-2"></i>
+                                <strong class="text-primary">John</strong> updated task "<strong>Database Optimization</strong>"
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-content">
+                                <i class="bi bi-arrow-repeat text-primary me-2"></i>
+                                <strong class="text-warning">Sarah</strong> committed code to "<strong>Feature Y</strong>"
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-content">
+                                <i class="bi bi-chat-right-dots-fill text-primary me-2"></i>
+                                <strong class="text-info">Mike</strong> shared an article: "<strong>10 Tips for Better Code Reviews</strong>"
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-content">
+                                <i class="bi bi-chat-right-dots-fill text-primary me-2"></i>
+                                <strong class="text-success">Sarah</strong> created a new task: "<strong>Implement User Authentication</strong>"
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-content">
+                                <i class="bi bi-chat-right-dots-fill text-primary me-2"></i>
+                                <strong class="text-danger">John</strong> updated the project timeline
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-modern shadow-lg mb-5">
+                <div class="card-header gradient-custom">Timeline and Reports</div>
+                <div class="card-body card-body-modern">
+                    <p><i class="bi bi-clock-history pe-2 icon-size"></i> Project Timeline: See the full timeline for key milestones and deadlines.</p>
+                    <p><i class="bi bi-bar-chart-line-fill pe-2 icon-size"></i> Performance Reports: Access detailed reports on team performance and project progress.</p>
+                </div>
+            </div>
+            <div class="card card-modern shadow-lg mb-5">
+                <div class="card-header gradient-custom">Automation</div>
+                <div class="card-body card-body-modern">
+                    <p><i class="bi bi-gear-fill pe-2 icon-size"></i> Workflow Automation: Automate routine tasks and streamline operations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:insert="~{common/footer :: footer}"></footer>
+<script th:src="@{/js/script.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

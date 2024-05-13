@@ -1,0 +1,38 @@
+/* Global variable definitions */
+:root {
+    --primary-color: #4CAF50; /* Primary color: Green shade */
+    --dark-bg: #333; /* Dark background */
+    --light-bg: #F5F5F7; /* Light background */
+    --footer-bg: #20232A; /* Footer background */
+    --link-hover-color: #198754; /* Link hover color: Bootstrap green hover */
+}
+
+/* Overall page style */
+body {
+    font-family: 'Roboto', sans-serif; /* Font setup */
+    background-color: var(--light-bg); /* Background color setup */
+    color: var(--dark-bg); /* Text color setup */
+    margin: 0; /* Remove external margin */
+    padding: 0; /* Remove internal padding */
+}
+
+/* Header and footer style */
+header, footer {
+    background-color: var(--footer-bg); /* Background color setup */
+    color: #61DAFB; /* Text color setup */
+}
+
+/* Navigation style */
+nav ul {
+    background-color: var(--dark-bg); /* Background color setup */
+}
+
+/* Navigation link style */
+nav ul li a {
+    color: white; /* Link text color */
+}
+
+/* Navigation link hover style */
+nav ul li a:hover {
+    background-color: var(--link-hover-color); /* Hover background color */
+}

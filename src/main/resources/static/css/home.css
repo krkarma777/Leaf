@@ -1,0 +1,107 @@
+h2 {
+    color: var(--dark-bg); /* Set text color using a custom variable */
+    border-bottom: 2px solid #61DAFB; /* Blue bottom border */
+}
+
+/* Additional styles for a modern look */
+.gradient-custom {
+    background: linear-gradient(to right, #56ab2f, #a8e063); /* Green gradient background */
+    color: white; /* White text color */
+}
+
+.card-modern {
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    backdrop-filter: blur(10px); /* Apply blur effect to background */
+    border: none; /* Remove border */
+}
+
+.card-header-modern {
+    background: transparent; /* Transparent background for card header */
+    border-bottom: none; /* Remove bottom border */
+    color: #333; /* Dark text color */
+    font-size: 1.2rem; /* Larger font size for card header */
+}
+
+.card-body-modern {
+    font-size: 1rem; /* Default font size for card body */
+}
+
+.card-modern ul {
+    padding-left: 20px; /* Add left padding to unordered list */
+}
+
+.card-modern li {
+    margin-bottom: 10px; /* Add bottom margin to list items */
+}
+
+/* Timeline styles */
+.timeline {
+    position: relative; /* Relative positioning for timeline */
+    padding-left: 30px; /* Add left padding */
+    list-style: none; /* Remove default list style */
+}
+
+.timeline::before {
+    content: ''; /* Create pseudo-element for timeline */
+    position: absolute; /* Absolute positioning */
+    top: 0;
+    bottom: 0;
+    left: 15px; /* Position to the left */
+    width: 2px; /* Width of timeline */
+    background: #ddd; /* Gray background for timeline */
+}
+
+.timeline-item {
+    margin-bottom: 20px; /* Add bottom margin to timeline items */
+    position: relative; /* Relative positioning for timeline items */
+}
+
+.timeline-item::before {
+    content: ''; /* Create pseudo-element for timeline items */
+    position: absolute; /* Absolute positioning */
+    left: 12px; /* Position to the left */
+    height: 15px; /* Height of dot */
+    width: 15px; /* Width of dot */
+    border-radius: 50%; /* Make dot circular */
+    background: #fff; /* White background for dot */
+    border: 3px solid #61DAFB; /* Blue border for dot */
+}
+
+.timeline-content {
+    padding-left: 20px; /* Add left padding for content */
+}
+
+/* Card hover effect */
+.card-modern:hover {
+    transform: scale(1.05); /* Scale up on hover */
+    transition: transform .3s ease; /* Smooth transition */
+}
+
+/* Announcement card styles */
+.announcement-card {
+    position: relative; /* Relative positioning for announcement card */
+    overflow: hidden; /* Hide overflowing content */
+    color: #fff; /* White text color */
+    background: linear-gradient(to right, #56ab2f, #a8e063); /* Gradient background */
+    border: none; /* Remove border */
+}
+
+.announcement-card::before {
+    content: ''; /* Create pseudo-element for background overlay */
+    position: absolute; /* Absolute positioning */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.5; /* Semi-transparent overlay */
+}
+
+.announcement-content {
+    position: relative; /* Relative positioning for announcement content */
+    z-index: 2; /* Place content above background overlay */
+}
+
+.announcement-icon {
+    font-size: 2rem; /* Large font size for icon */
+    vertical-align: middle; /* Align icon vertically */
+}
