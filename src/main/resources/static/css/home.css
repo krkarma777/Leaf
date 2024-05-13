@@ -1,0 +1,24 @@
+/* 대시보드 스타일 */
+.dashboard {
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* 각 패널 스타일 */
+.status-panel, .activity-panel, .notice-panel {
+    background-color: white;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #20232A;
+    border-bottom: 2px solid #61DAFB;
+    padding-bottom: 10px;
+}
+
+.status-details, .activity-list, .notice-content {
+    padding-top: 10px;
+}

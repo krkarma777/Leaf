@@ -1,0 +1,52 @@
+/* 기본 폰트와 배경 색상 */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F5F5F7;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* 헤더 스타일 */
+header {
+    background-color: #20232A;
+    color: #61DAFB;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 24px;
+}
+
+/* 네비게이션 바 스타일 */
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+nav ul li {
+    float: left;
+}
+
+nav ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    background-color: #555;
+}
+
+/* 푸터 스타일 */
+footer {
+    background-color: #20232A;
+    color: white;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
