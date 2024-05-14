@@ -31,6 +31,7 @@ public class SecurityConfig {
         http
                 .formLogin((authorize) -> authorize
                         .usernameParameter("email").passwordParameter("password")
+                        .loginPage("/login")
                         .loginProcessingUrl("/login"));
 
         http
