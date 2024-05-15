@@ -22,11 +22,14 @@
                         <div class="input-group mb-3 form-floating">
                             <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
                             <input type="email" class="form-control" id="email" name="email" placeholder="Email"
-                                   required onkeyup="validatePassword()">
+                                   required onblur="checkEmailDuplicate()" onkeyup="validatePassword()">
                             <label for="email">Email</label>
                             <div class="invalid-feedback" id="usernameFeedback" style="display: none;"></div>
                             <div class="invalid-feedback">
                                 Please enter your email.
+                            </div>
+                            <div class="invalid-feedback" id="emailDuplicateFeedback" style="display: none;">
+                                This email is already registered. Please use a different email.
                             </div>
                         </div>
                         <div class="input-group mb-3 form-floating">
@@ -97,6 +100,31 @@
             element.classList.add('text-danger');
             element.innerHTML = '&#10008; ' + element.textContent.slice(2); // Update icon to X mark
         }
+    }
+
+    function checkEmailDuplicate() {
+        const email = document.getElementById('email').value;
+        fetch(`/api/user/check-email?email=${email}`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Email check failed');
+                }
+            })
+            .then(data => {
+                const emailDuplicateFeedback = document.getElementById('emailDuplicateFeedback');
+                if (data.exists) {
+                    emailDuplicateFeedback.style.display = 'block';
+                    document.getElementById('email').classList.add('is-invalid');
+                } else {
+                    emailDuplicateFeedback.style.display = 'none';
+                    document.getElementById('email').classList.remove('is-invalid');
+                }
+            })
+            .catch(error => {
+                console.error('Error checking email:', error);
+            });
     }
 
     document.getElementById('registerForm').addEventListener('submit', function(event) {
