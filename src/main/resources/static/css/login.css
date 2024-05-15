@@ -1,0 +1,122 @@
+.login-container {
+    max-width: 400px;
+    margin: 12% auto;
+    padding: 2rem;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-header, .social-login-header {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.login-form button {
+    width: 100%;
+    height: 48px;
+    border-radius: 0.25rem;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    border: none;
+    transition: background-color 0.2s, transform 0.15s ease;
+    background-image: linear-gradient(to right, #38ef7d, #11998e); /* Green gradient */
+    color: white;
+}
+
+.login-form button:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+.social-logo {
+    width: 60px;
+    height: auto;
+    display: inline;
+    margin: 0 auto 10px;
+}
+
+.social-login-buttons a {
+    display: inline-block;
+    margin-right: 10px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.login-form {
+    margin-bottom: 1rem;
+}
+
+.login-form input {
+    height: 48px;
+    margin-bottom: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.login-form input:focus {
+    border-color: #38ef7d; /* Green border color */
+    box-shadow: 0 0 0 0.2rem rgba(56, 239, 125, 0.25); /* Soft green shadow */
+}
+
+.login-form button {
+    background-color: #007bff;
+    color: white;
+}
+
+.login-form-link {
+    text-align: center;
+    display: block;
+    margin-top: 2rem;
+    color: #007bff;
+    transition: color 0.2s;
+}
+
+.login-form-link:hover {
+    color: #0056b3;
+}
+
+.login-form-footer {
+    text-align: center;
+    margin-top: 2rem;
+    color: #666;
+}
+
+.social-login {
+    text-align: center;
+}
+
+.logo {
+    display: block;
+    width: auto;
+    margin: 10px auto;
+    height: 60px;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.form-check-input {
+    margin-top: 10px;
+    padding-bottom: -20px;
+}
+
+.center-align {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.center-align a:not(:first-child)::before {
+    content: "•";
+    color: grey;
+    margin-right: 8px;
+}

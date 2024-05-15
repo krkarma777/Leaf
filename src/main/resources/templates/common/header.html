@@ -1,16 +1,22 @@
-<header class="bg-dark text-white py-3" th:fragment="header">
-    <div class="container d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
-            <a href="/" class="d-flex align-items-center text-decoration-none text-white">
-                <img th:src="@{/images/logo.png}"
-                     alt="Logo" style="width: 70px; height: auto;" class="me-2">
-            </a>
+    <header class="bg-dark text-white py-3" th:fragment="header" th:with="isAuthenticated=${#authorization.expression('isAuthenticated()')}">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <a href="/" class="d-flex align-items-center text-decoration-none text-white">
+                    <img th:src="@{/images/logo.png}"
+                         alt="Logo" style="width: 70px; height: auto;" class="me-2">
+                </a>
+            </div>
+            <div class="user-info d-flex align-items-center">
+                <div th:if="${isAuthenticated}">
+                    <img th:src="${userProfile != null} ? @{/images/${userProfile}} : @{/images/default-user.png}"
+                         alt="User Profile" style="width: 40px; height: 40px; border-radius: 50%;" class="me-2">
+                    <span class="me-3">Username</span>
+                    <a href="/logout" class="btn btn-outline-light btn-sm">Logout</a>
+                </div>
+                <div th:if="!${isAuthenticated}" class="login-info">
+                    <a href="/login" class="btn btn-outline-light btn-sm">Login</a>
+                    <a href="/register" class="btn btn-outline-light btn-sm">register</a>
+                </div>
+            </div>
         </div>
-        <div class="user-info d-flex align-items-center">
-            <img th:src="${userProfile != null} ? @{/images/${userProfile}} : @{/images/default-user.png}"
-                 alt="User Profile" style="width: 40px; height: 40px; border-radius: 50%;" class="me-2">
-            <span class="me-3">Username</span>
-            <a href="/logout" class="btn btn-outline-light btn-sm">Logout</a>
-        </div>
-    </div>
-</header>
+    </header>
