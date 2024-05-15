@@ -17,6 +17,9 @@ public class UserService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public User register(UserCreateRequestDTO requestDTO) {
+        if (userRepository.findByEmail(requestDTO.getEmail()).isPresent()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email is already registered");
+        }
         String encodedPW = bCryptPasswordEncoder.encode(requestDTO.getPassword());
         requestDTO.setPassword(encodedPW);
         User user = new User(requestDTO);
@@ -26,5 +29,9 @@ public class UserService {
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found"));
+    }
+
+    public boolean checkEmailExists(String email) {
+        return userRepository.findByEmail(email).isPresent();
     }
 }
