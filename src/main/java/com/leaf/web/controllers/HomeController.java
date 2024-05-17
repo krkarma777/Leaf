@@ -20,4 +20,9 @@ public class HomeController {
     public String register() {
         return "register";
     }
+
+    @GetMapping("/project/create")
+    public String createProject() {
+        return "project/create-project";
+    }
 }
