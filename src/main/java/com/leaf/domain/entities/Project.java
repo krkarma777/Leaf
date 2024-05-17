@@ -1,6 +1,7 @@
 package com.leaf.domain.entities;
 
 import com.leaf.domain.enums.PriorityType;
+import com.leaf.domain.enums.Status;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,4 +50,8 @@ public class Project {
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private PriorityType priority;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    private Status status;
 }
