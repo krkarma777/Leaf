@@ -13,7 +13,6 @@ public class ProjectCreateRequestDTO {
     private String description;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private Long projectManagerId;
     private List<Long> teamMemberIds;
     private String category;
     private PriorityType priority;
