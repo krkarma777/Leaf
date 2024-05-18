@@ -1,11 +1,11 @@
 package com.leaf.web.controllers;
 
 import com.leaf.domain.dtos.UserCreateRequestDTO;
+import com.leaf.domain.dtos.UserFindByQueryResponseDTO;
 import com.leaf.domain.entities.User;
 import com.leaf.domain.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
-@Controller
+@RestController
 public class UserController {
 
     private final UserService userService;
@@ -31,8 +31,9 @@ public class UserController {
     }
 
     @GetMapping("/search-members")
-    public List<User> searchMembers(@RequestParam("q") String q) {
-        return userService.searchUsers(q);
+    public ResponseEntity<?> searchMembers(@RequestParam("q") String q) {
+        List<UserFindByQueryResponseDTO> list = userService.searchUsers(q).stream().map(UserFindByQueryResponseDTO::new).toList();
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/check-email")
