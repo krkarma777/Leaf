@@ -13,7 +13,7 @@
 
 <div class="container mt-5 create-project-form">
     <h2>Create Project</h2>
-    <form>
+    <form id="createProjectForm">
         <label for="projectName">Project Name</label>
         <input type="text" id="projectName" name="projectName" placeholder="Enter project name">
 
@@ -21,48 +21,49 @@
         <textarea id="description" name="description" placeholder="Enter project description"></textarea>
 
         <label for="startDate">Start Date</label>
-        <input type="date" id="startDate" name="startDate">
+        <input type="datetime-local" id="startDate" name="startDate">
 
         <label for="endDate">End Date</label>
-        <input type="date" id="endDate" name="endDate">
+        <input type="datetime-local" id="endDate" name="endDate">
 
-        <label for="projectManager">Project Manager</label>
-        <select id="projectManager" name="projectManager">
-            <option value="">Select a manager</option>
-            <!-- Options for project managers -->
-        </select>
-
-        <label for="teamMembers">Add Team Members</label>
-        <select id="teamMembers" name="teamMembers" multiple>
-            <option value="">Select team members</option>
-            <!-- Options for team members -->
-        </select>
+        <!-- Searchable Team Members -->
+        <label for="teamMemberSearch">Add Team Members</label>
+        <input type="text" id="teamMemberSearch" placeholder="Search team members" oninput="searchMembers(this.value)">
+        <ul id="searchResults" class="search-results"></ul>
+        <!-- Selected Team Members List -->
+        <ul id="selectedTeamMembers"></ul>
+        <input type="hidden" id="teamMemberIds" name="teamMemberIds">
 
         <label for="category">Project Category</label>
         <select id="category" name="category">
             <option value="">Select a category</option>
-            <!-- Options for categories -->
+            <option value="Software Development">Software Development</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Research">Research</option>
+            <option value="Design">Design</option>
+            <option value="Human Resources">Human Resources</option>
         </select>
 
         <div class="radio-group">
             <label>Priority</label>
-            <input type="radio" id="highPriority" name="priority" value="high">
+            <input type="radio" id="highPriority" name="priority" value="HIGH">
             <label for="highPriority">High</label>
 
-            <input type="radio" id="mediumPriority" name="priority" value="medium">
+            <input type="radio" id="mediumPriority" name="priority" value="MEDIUM">
             <label for="mediumPriority">Medium</label>
 
-            <input type="radio" id="lowPriority" name="priority" value="low">
+            <input type="radio" id="lowPriority" name="priority" value="LOW">
             <label for="lowPriority">Low</label>
         </div>
-
-        <label for="attachments">Attachments</label>
-        <input type="file" id="attachments" name="attachments">
 
         <label for="status">Project Status</label>
         <select id="status" name="status">
             <option value="">Select status</option>
-            <!-- Options for status -->
+            <option value="PLANNING">Planning</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="ON_HOLD">On Hold</option>
+            <option value="COMPLETED">Completed</option>
+            <option value="ARCHIVED">Archived</option>
         </select>
 
         <div class="buttons">
@@ -74,5 +75,78 @@
 
 <footer th:insert="~{common/footer :: footer}"></footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function searchMembers(query) {
+        if (query.length < 3) {  // Start searching only if the query is at least 3 characters long
+            document.getElementById('searchResults').innerHTML = '';
+            return;
+        }
+        fetch(`/api/user/search-members?q=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(data => {
+                const resultsContainer = document.getElementById('searchResults');
+                resultsContainer.innerHTML = '';  // Clear previous search results
+                data.forEach(member => {
+                    const li = document.createElement('li');
+                    li.textContent = member.email;  // Display email in search results
+                    li.setAttribute('data-id', member.id);
+                    li.onclick = () => addMember(member.id, member.email);
+                    resultsContainer.appendChild(li);
+                });
+            });
+    }
+
+    // Add selected member to the form
+    function addMember(id, name) {
+        const memberList = document.getElementById('selectedTeamMembers');
+        if (!document.querySelector(`#selectedTeamMembers [data-id="${id}"]`)) {
+            const member = document.createElement('li');
+            member.textContent = name;
+            member.setAttribute('data-id', id);
+            memberList.appendChild(member);
+            updateTeamMemberIds();
+        }
+    }
+
+    // Update hidden input field with selected team member IDs
+    function updateTeamMemberIds() {
+        const memberList = document.getElementById('selectedTeamMembers');
+        const memberIds = [];
+        memberList.querySelectorAll('li').forEach(member => {
+            memberIds.push(parseInt(member.getAttribute('data-id')));
+        });
+        document.getElementById('teamMemberIds').value = JSON.stringify(memberIds);
+    }
+
+    document.getElementById('createProjectForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+
+        // Parse the JSON string back to an array
+        data.teamMemberIds = JSON.parse(data.teamMemberIds);
+
+        fetch('/api/projects', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Project created successfully!');
+                    // Optionally, redirect or clear the form
+                } else {
+                    alert('Failed to create project.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while creating the project.');
+            });
+    });
+</script>
 </body>
 </html>

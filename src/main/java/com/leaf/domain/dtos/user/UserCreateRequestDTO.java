@@ -1,4 +1,4 @@
-package com.leaf.domain.dtos;
+package com.leaf.domain.dtos.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

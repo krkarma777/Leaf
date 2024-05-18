@@ -1,6 +1,6 @@
 package com.leaf.domain.entities;
 
-import com.leaf.domain.dtos.UserCreateRequestDTO;
+import com.leaf.domain.dtos.user.UserCreateRequestDTO;
 import com.leaf.domain.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;

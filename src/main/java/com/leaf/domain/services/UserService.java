@@ -1,6 +1,6 @@
 package com.leaf.domain.services;
 
-import com.leaf.domain.dtos.UserCreateRequestDTO;
+import com.leaf.domain.dtos.user.UserCreateRequestDTO;
 import com.leaf.domain.entities.User;
 import com.leaf.domain.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +35,13 @@ public class UserService {
 
     public boolean checkEmailExists(String email) {
         return userRepository.findByEmail(email).isPresent();
+    }
+
+    public List<User> searchUsers(String query) {
+        return userRepository.searchByName(query);
+    }
+
+    public User findById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found"));
     }
 }
