@@ -13,7 +13,7 @@
 
 <div class="container mt-5 create-project-form">
     <h2>Create Project</h2>
-    <form>
+    <form id="createProjectForm">
         <label for="projectName">Project Name</label>
         <input type="text" id="projectName" name="projectName" placeholder="Enter project name">
 
@@ -21,10 +21,10 @@
         <textarea id="description" name="description" placeholder="Enter project description"></textarea>
 
         <label for="startDate">Start Date</label>
-        <input type="date" id="startDate" name="startDate">
+        <input type="datetime-local" id="startDate" name="startDate">
 
         <label for="endDate">End Date</label>
-        <input type="date" id="endDate" name="endDate">
+        <input type="datetime-local" id="endDate" name="endDate">
 
         <!-- Searchable Team Members -->
         <label for="teamMemberSearch">Add Team Members</label>
@@ -32,6 +32,7 @@
         <ul id="searchResults" class="search-results"></ul>
         <!-- Selected Team Members List -->
         <ul id="selectedTeamMembers"></ul>
+        <input type="hidden" id="teamMemberIds" name="teamMemberIds">
 
         <label for="category">Project Category</label>
         <select id="category" name="category">
@@ -65,7 +66,6 @@
             <button type="submit" class="btn-primary">Create</button>
             <button type="button" class="btn-secondary">Cancel</button>
         </div>
-
     </form>
 </div>
 
@@ -100,8 +100,46 @@
             member.textContent = name;
             member.setAttribute('data-id', id);
             memberList.appendChild(member);
+            updateTeamMemberIds();
         }
     }
+
+    // Update hidden input field with selected team member IDs
+    function updateTeamMemberIds() {
+        const memberList = document.getElementById('selectedTeamMembers');
+        const memberIds = [];
+        memberList.querySelectorAll('li').forEach(member => {
+            memberIds.push(member.getAttribute('data-id'));
+        });
+        document.getElementById('teamMemberIds').value = memberIds.join(',');
+    }
+
+    document.getElementById('createProjectForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+
+        fetch('/api/projects', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert('Project created successfully!');
+                    // Optionally, redirect or clear the form
+                } else {
+                    alert('Failed to create project.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while creating the project.');
+            });
+    });
 </script>
 </body>
 </html>
