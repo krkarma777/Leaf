@@ -37,7 +37,11 @@
         <label for="category">Project Category</label>
         <select id="category" name="category">
             <option value="">Select a category</option>
-            <!-- Dynamic options for categories -->
+            <option value="Software Development">Software Development</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Research">Research</option>
+            <option value="Design">Design</option>
+            <option value="Human Resources">Human Resources</option>
         </select>
 
         <div class="radio-group">
@@ -109,9 +113,9 @@
         const memberList = document.getElementById('selectedTeamMembers');
         const memberIds = [];
         memberList.querySelectorAll('li').forEach(member => {
-            memberIds.push(member.getAttribute('data-id'));
+            memberIds.push(parseInt(member.getAttribute('data-id')));
         });
-        document.getElementById('teamMemberIds').value = memberIds.join(',');
+        document.getElementById('teamMemberIds').value = JSON.stringify(memberIds);
     }
 
     document.getElementById('createProjectForm').addEventListener('submit', function(event) {
@@ -119,6 +123,9 @@
 
         const formData = new FormData(this);
         const data = Object.fromEntries(formData.entries());
+
+        // Parse the JSON string back to an array
+        data.teamMemberIds = JSON.parse(data.teamMemberIds);
 
         fetch('/api/projects', {
             method: 'POST',
