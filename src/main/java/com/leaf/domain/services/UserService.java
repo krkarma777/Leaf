@@ -9,6 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -33,5 +35,9 @@ public class UserService {
 
     public boolean checkEmailExists(String email) {
         return userRepository.findByEmail(email).isPresent();
+    }
+
+    public List<User> searchUsers(String query) {
+        return userRepository.searchByName(query);
     }
 }
