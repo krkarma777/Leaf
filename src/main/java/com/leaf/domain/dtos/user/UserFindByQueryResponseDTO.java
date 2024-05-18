@@ -1,4 +1,4 @@
-package com.leaf.domain.dtos;
+package com.leaf.domain.dtos.user;
 
 import com.leaf.domain.entities.User;
 import lombok.Data;

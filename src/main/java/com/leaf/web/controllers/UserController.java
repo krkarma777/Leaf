@@ -1,7 +1,7 @@
 package com.leaf.web.controllers;
 
-import com.leaf.domain.dtos.UserCreateRequestDTO;
-import com.leaf.domain.dtos.UserFindByQueryResponseDTO;
+import com.leaf.domain.dtos.user.UserCreateRequestDTO;
+import com.leaf.domain.dtos.user.UserFindByQueryResponseDTO;
 import com.leaf.domain.entities.User;
 import com.leaf.domain.services.UserService;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.leaf.domain.services;
 
-import com.leaf.domain.dtos.UserCreateRequestDTO;
+import com.leaf.domain.dtos.user.UserCreateRequestDTO;
 import com.leaf.domain.entities.User;
 import com.leaf.domain.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
