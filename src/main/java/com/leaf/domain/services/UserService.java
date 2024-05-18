@@ -40,4 +40,8 @@ public class UserService {
     public List<User> searchUsers(String query) {
         return userRepository.searchByName(query);
     }
+
+    public User findById(Long id) {
+        return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found"));
+    }
 }
