@@ -1,5 +1,6 @@
 package com.leaf.domain.entities;
 
+import com.leaf.domain.dtos.project.ProjectCreateRequestDTO;
 import com.leaf.domain.enums.PriorityType;
 import com.leaf.domain.enums.Status;
 import jakarta.persistence.*;
@@ -54,4 +55,19 @@ public class Project {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private Status status;
+
+    public Project(ProjectCreateRequestDTO requestDTO, User projectManager, Set<User> teamMembers) {
+        this.projectName = requestDTO.getProjectName();
+        this.description = requestDTO.getDescription();
+        this.startDate = requestDTO.getStartDate();
+        this.endDate = requestDTO.getEndDate();
+        this.projectManager = projectManager;
+        this.teamMembers = teamMembers;
+        this.category = requestDTO.getCategory();
+        this.priority = requestDTO.getPriority();
+        this.status = requestDTO.getStatus();
+    }
+
+    public Project() {
+    }
 }
