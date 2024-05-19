@@ -13,18 +13,30 @@
 
 <div class="container mt-5 create-project-form">
     <h2>Create Project</h2>
-    <form id="createProjectForm">
+    <form id="createProjectForm" novalidate>
         <label for="projectName">Project Name</label>
-        <input type="text" id="projectName" name="projectName" placeholder="Enter project name">
+        <input type="text" id="projectName" name="projectName" placeholder="Enter project name"
+               required maxlength="100"
+               oninput="setCustomValidity('')"
+               oninvalid="this.setCustomValidity('Project name is required and must be less than 100 characters.')">
 
         <label for="description">Description</label>
-        <textarea id="description" name="description" placeholder="Enter project description"></textarea>
+        <textarea id="description" name="description" placeholder="Enter project description"
+                  required maxlength="500"
+                  oninput="setCustomValidity('')"
+                  oninvalid="this.setCustomValidity('Description is required and must be less than 500 characters.')"></textarea>
 
         <label for="startDate">Start Date</label>
-        <input type="datetime-local" id="startDate" name="startDate">
+        <input type="datetime-local" id="startDate" name="startDate" required
+               th:min="${currentDateTime}"
+               oninput="setCustomValidity('')"
+               oninvalid="this.setCustomValidity('Start date is required and must be in the future.')">
 
         <label for="endDate">End Date</label>
-        <input type="datetime-local" id="endDate" name="endDate">
+        <input type="datetime-local" id="endDate" name="endDate" required
+               th:min="${currentDateTime}"
+               oninput="setCustomValidity('')"
+               oninvalid="this.setCustomValidity('End date is required and must be in the future.')">
 
         <!-- Searchable Team Members -->
         <label for="teamMemberSearch">Add Team Members</label>
@@ -35,7 +47,9 @@
         <input type="hidden" id="teamMemberIds" name="teamMemberIds">
 
         <label for="category">Project Category</label>
-        <select id="category" name="category">
+        <select id="category" name="category" required
+                oninput="setCustomValidity('')"
+                oninvalid="this.setCustomValidity('Category is required.')">
             <option value="">Select a category</option>
             <option value="Software Development">Software Development</option>
             <option value="Marketing">Marketing</option>
@@ -44,9 +58,11 @@
             <option value="Human Resources">Human Resources</option>
         </select>
 
-        <div class="radio-group">
+        <div class="radio-group" required
+             oninput="setCustomValidity('')"
+             oninvalid="this.setCustomValidity('Priority is required.')">
             <label>Priority</label>
-            <input type="radio" id="highPriority" name="priority" value="HIGH">
+            <input type="radio" id="highPriority" name="priority" value="HIGH" required>
             <label for="highPriority">High</label>
 
             <input type="radio" id="mediumPriority" name="priority" value="MEDIUM">
@@ -57,7 +73,9 @@
         </div>
 
         <label for="status">Project Status</label>
-        <select id="status" name="status">
+        <select id="status" name="status" required
+                oninput="setCustomValidity('')"
+                oninvalid="this.setCustomValidity('Status is required.')">
             <option value="">Select status</option>
             <option value="PLANNING">Planning</option>
             <option value="IN_PROGRESS">In Progress</option>
@@ -68,85 +86,13 @@
 
         <div class="buttons">
             <button type="submit" class="btn-primary">Create</button>
-            <button type="button" class="btn-secondary">Cancel</button>
+            <button type="button" class="btn-secondary" onclick="resetForm()">Cancel</button>
         </div>
     </form>
 </div>
 
 <footer th:insert="~{common/footer :: footer}"></footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    function searchMembers(query) {
-        if (query.length < 3) {  // Start searching only if the query is at least 3 characters long
-            document.getElementById('searchResults').innerHTML = '';
-            return;
-        }
-        fetch(`/api/user/search-members?q=${encodeURIComponent(query)}`)
-            .then(response => response.json())
-            .then(data => {
-                const resultsContainer = document.getElementById('searchResults');
-                resultsContainer.innerHTML = '';  // Clear previous search results
-                data.forEach(member => {
-                    const li = document.createElement('li');
-                    li.textContent = member.email;  // Display email in search results
-                    li.setAttribute('data-id', member.id);
-                    li.onclick = () => addMember(member.id, member.email);
-                    resultsContainer.appendChild(li);
-                });
-            });
-    }
-
-    // Add selected member to the form
-    function addMember(id, name) {
-        const memberList = document.getElementById('selectedTeamMembers');
-        if (!document.querySelector(`#selectedTeamMembers [data-id="${id}"]`)) {
-            const member = document.createElement('li');
-            member.textContent = name;
-            member.setAttribute('data-id', id);
-            memberList.appendChild(member);
-            updateTeamMemberIds();
-        }
-    }
-
-    // Update hidden input field with selected team member IDs
-    function updateTeamMemberIds() {
-        const memberList = document.getElementById('selectedTeamMembers');
-        const memberIds = [];
-        memberList.querySelectorAll('li').forEach(member => {
-            memberIds.push(parseInt(member.getAttribute('data-id')));
-        });
-        document.getElementById('teamMemberIds').value = JSON.stringify(memberIds);
-    }
-
-    document.getElementById('createProjectForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
-
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData.entries());
-
-        // Parse the JSON string back to an array
-        data.teamMemberIds = JSON.parse(data.teamMemberIds);
-
-        fetch('/api/projects', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => {
-                if (response.ok) {
-                    alert('Project created successfully!');
-                    // Optionally, redirect or clear the form
-                } else {
-                    alert('Failed to create project.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while creating the project.');
-            });
-    });
-</script>
+<script src="/js/create-project.js"></script>
 </body>
 </html>
