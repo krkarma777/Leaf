@@ -17,25 +17,25 @@
         <label for="projectName">Project Name</label>
         <input type="text" id="projectName" name="projectName" placeholder="Enter project name"
                required maxlength="100"
-               oninput="setCustomValidity('')"
+               oninput="this.setCustomValidity('')"
                oninvalid="this.setCustomValidity('Project name is required and must be less than 100 characters.')">
 
         <label for="description">Description</label>
         <textarea id="description" name="description" placeholder="Enter project description"
                   required maxlength="500"
-                  oninput="setCustomValidity('')"
+                  oninput="this.setCustomValidity('')"
                   oninvalid="this.setCustomValidity('Description is required and must be less than 500 characters.')"></textarea>
 
         <label for="startDate">Start Date</label>
         <input type="datetime-local" id="startDate" name="startDate" required
                th:min="${currentDateTime}"
-               oninput="setCustomValidity('')"
+               oninput="this.setCustomValidity('')"
                oninvalid="this.setCustomValidity('Start date is required and must be in the future.')">
 
         <label for="endDate">End Date</label>
         <input type="datetime-local" id="endDate" name="endDate" required
                th:min="${currentDateTime}"
-               oninput="setCustomValidity('')"
+               oninput="this.setCustomValidity('')"
                oninvalid="this.setCustomValidity('End date is required and must be in the future.')">
 
         <!-- Searchable Team Members -->
@@ -48,7 +48,7 @@
 
         <label for="category">Project Category</label>
         <select id="category" name="category" required
-                oninput="setCustomValidity('')"
+                oninput="this.setCustomValidity('')"
                 oninvalid="this.setCustomValidity('Category is required.')">
             <option value="">Select a category</option>
             <option value="Software Development">Software Development</option>
@@ -58,9 +58,7 @@
             <option value="Human Resources">Human Resources</option>
         </select>
 
-        <div class="radio-group" required
-             oninput="setCustomValidity('')"
-             oninvalid="this.setCustomValidity('Priority is required.')">
+        <div class="radio-group" required>
             <label>Priority</label>
             <input type="radio" id="highPriority" name="priority" value="HIGH" required>
             <label for="highPriority">High</label>
@@ -74,7 +72,7 @@
 
         <label for="status">Project Status</label>
         <select id="status" name="status" required
-                oninput="setCustomValidity('')"
+                oninput="this.setCustomValidity('')"
                 oninvalid="this.setCustomValidity('Status is required.')">
             <option value="">Select status</option>
             <option value="PLANNING">Planning</option>
