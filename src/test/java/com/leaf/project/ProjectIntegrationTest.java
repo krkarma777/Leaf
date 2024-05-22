@@ -70,4 +70,24 @@ public class ProjectIntegrationTest {
         assertEquals(1, projects.size());
         assertEquals("New Project", projects.get(0).getProjectName());
     }
+
+    @Test
+    @WithMockUser(username = "manager@example.com")
+    void testCreateProject_InvalidInput_EmptyProjectName() throws Exception {
+        ProjectCreateRequestDTO requestDTO = new ProjectCreateRequestDTO(
+                "", // Empty project name
+                "Description of the project",
+                LocalDateTime.now().plusDays(1),
+                LocalDateTime.now().plusDays(10),
+                List.of(manager.getId()),
+                "Software Development",
+                PriorityType.MEDIUM,
+                Status.PLANNING
+        );
+
+        mockMvc.perform(post("/api/projects")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDTO)))
+                .andExpect(status().isBadRequest());
+    }
 }
