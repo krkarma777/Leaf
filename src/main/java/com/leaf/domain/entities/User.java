@@ -30,4 +30,9 @@ public class User {
         this.email = requestDTO.getEmail();
         this.password = requestDTO.getPassword();
     }
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 }
