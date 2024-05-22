@@ -39,4 +39,18 @@ public class ProjectCreateRequestDTO {
 
     @NotNull(message = "Status is required")
     private Status status;
+
+    public ProjectCreateRequestDTO(String projectName, String description, LocalDateTime startDate, LocalDateTime endDate, List<Long> teamMemberIds, String category, PriorityType priority, Status status) {
+        this.projectName = projectName;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.teamMemberIds = teamMemberIds;
+        this.category = category;
+        this.priority = priority;
+        this.status = status;
+    }
+
+    public ProjectCreateRequestDTO() {
+    }
 }
