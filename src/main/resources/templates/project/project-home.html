@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaf</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/common.css}"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            loadProjects(0);
+
+            function loadProjects(page) {
+                $.ajax({
+                    url: '/api/projects/my-projects',
+                    data: {page: page, size: 10},
+                    success: function (data) {
+                        renderProjects(data);
+                        renderPagination(data);
+                    },
+                    error: function (error) {
+                        console.log("Error:", error);
+                    }
+                });
+            }
+
+            function renderProjects(data) {
+                let tbody = $('#projectsTable tbody');
+                tbody.empty();
+                $.each(data.content, function (index, project) {
+                    let row = '<tr>' +
+                        '<td>' + project.projectName + '</td>' +
+                        '<td>' + project.description + '</td>' +
+                        '<td>' + new Date(project.startDate).toLocaleString() + '</td>' +
+                        '<td>' + new Date(project.endDate).toLocaleString() + '</td>' +
+                        '<td>' + project.category + '</td>' +
+                        '<td>' + project.priority + '</td>' +
+                        '<td>' + project.status + '</td>' +
+                        '</tr>';
+                    tbody.append(row);
+                });
+            }
+
+            function renderPagination(data) {
+                let pagination = $('.pagination');
+                pagination.empty();
+                if (data.totalPages > 1) {
+                    let prevDisabled = data.number === 0 ? 'disabled' : '';
+                    pagination.append('<li class="' + prevDisabled + '"><a href="#" class="prev">&laquo; Previous</a></li>');
+                    for (let i = 0; i < data.totalPages; i++) {
+                        let active = data.number === i ? 'active' : '';
+                        pagination.append('<li class="' + active + '"><a href="#" class="page" data-page="' + i + '">' + (i + 1) + '</a></li>');
+                    }
+                    let nextDisabled = data.number === data.totalPages - 1 ? 'disabled' : '';
+                    pagination.append('<li class="' + nextDisabled + '"><a href="#" class="next">Next &raquo;</a></li>');
+                }
+
+                $('.pagination a.page').click(function () {
+                    let page = $(this).data('page');
+                    loadProjects(page);
+                });
+
+                $('.pagination a.prev').click(function () {
+                    if (!$(this).parent().hasClass('disabled')) {
+                        loadProjects(data.number - 1);
+                    }
+                });
+
+                $('.pagination a.next').click(function () {
+                    if (!$(this).parent().hasClass('disabled')) {
+                        loadProjects(data.number + 1);
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+<header th:insert="~{common/header :: header}"></header>
+<nav th:insert="~{common/navbar :: navbar}"></nav>
+<div class="container mt-5">
+    <div class="container">
+        <h1>My Projects</h1>
+        <div id="projects">
+            <table id="projectsTable">
+                <thead>
+                <tr>
+                    <th>Project Name</th>
+                    <th>Description</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Category</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Project rows will be appended here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination">
+            <!-- Pagination links will be appended here by JavaScript -->
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
