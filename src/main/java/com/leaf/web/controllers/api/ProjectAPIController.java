@@ -1,4 +1,4 @@
-package com.leaf.web.controllers;
+package com.leaf.web.controllers.api;
 
 import com.leaf.domain.dtos.project.ProjectCreateRequestDTO;
 import com.leaf.domain.entities.Project;
@@ -19,7 +19,7 @@ import java.security.Principal;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/projects")
-public class ProjectController {
+public class ProjectAPIController {
 
     private final ProjectService projectService;
 

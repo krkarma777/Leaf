@@ -1,4 +1,4 @@
-package com.leaf.web.controllers;
+package com.leaf.web.controllers.api;
 
 import com.leaf.domain.dtos.user.UserCreateRequestDTO;
 import com.leaf.domain.dtos.user.UserFindByQueryResponseDTO;
@@ -14,7 +14,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
 @RestController
-public class UserController {
+public class UserAPIController {
 
     private final UserService userService;
 
