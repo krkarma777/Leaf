@@ -5,7 +5,11 @@ import com.leaf.domain.entities.Project;
 import com.leaf.domain.entities.User;
 import com.leaf.domain.repositories.ProjectRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.Set;
@@ -29,5 +33,11 @@ public class ProjectService {
         teamMembers.add(projectManager);
 
         return projectRepository.save(new Project(requestDTO, projectManager, teamMembers));
+    }
+
+    public Page<Project> findByPrincipal(Principal principal, Pageable pageable) {
+        if (principal == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You are not logged in");
+        User user = userService.findByEmail(principal.getName());
+        return projectRepository.findProjectsByUser(user, pageable);
     }
 }
