@@ -1,6 +1,7 @@
 package com.leaf.web.controllers.api;
 
 import com.leaf.domain.dtos.project.ProjectCreateRequestDTO;
+import com.leaf.domain.dtos.project.ProjectResponseDTO;
 import com.leaf.domain.entities.Project;
 import com.leaf.domain.services.ProjectService;
 import com.leaf.domain.services.UserService;
@@ -44,13 +45,14 @@ public class ProjectAPIController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Project> getProjectById(@PathVariable Long id, Principal principal) {
+    public ResponseEntity<ProjectResponseDTO> getProjectById(@PathVariable Long id, Principal principal) {
         Project project = projectService.findById(id);
 
         if (!project.getTeamMembers().contains(userService.findByEmail(principal.getName()))) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        return ResponseEntity.ok(project);
+        ProjectResponseDTO responseDTO  = new ProjectResponseDTO(project);
+        return ResponseEntity.ok(responseDTO);
     }
 }
