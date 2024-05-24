@@ -25,10 +25,11 @@ public class ProjectConroller {
         return "project/create-project";
     }
 
-    @GetMapping("/edit")
-    public String editProjectForm(Model model) {
+    @GetMapping("/edit/{id}")
+    public String editProjectForm(Model model, @PathVariable("id") Long id) {
         String currentDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"));
         model.addAttribute("currentDateTime", currentDateTime);
+        model.addAttribute("id", id);
         return "project/edit-project";
     }
 }
