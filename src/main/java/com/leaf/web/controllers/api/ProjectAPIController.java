@@ -1,14 +1,17 @@
 package com.leaf.web.controllers.api;
 
 import com.leaf.domain.dtos.project.ProjectCreateRequestDTO;
+import com.leaf.domain.dtos.project.ProjectResponseDTO;
 import com.leaf.domain.entities.Project;
 import com.leaf.domain.services.ProjectService;
+import com.leaf.domain.services.UserService;
 import com.leaf.web.utils.ValidationErrorHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -22,6 +25,7 @@ import java.security.Principal;
 public class ProjectAPIController {
 
     private final ProjectService projectService;
+    private final UserService userService;
 
     @PostMapping
     public ResponseEntity<?> createProject(@RequestBody @Validated ProjectCreateRequestDTO requestDTO, Principal principal, BindingResult bindingResult) {
@@ -38,5 +42,17 @@ public class ProjectAPIController {
             @PageableDefault(sort = "startDate", direction = Sort.Direction.DESC) Pageable pageable
     ) {
         return ResponseEntity.ok(projectService.findByPrincipal(principal, pageable));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProjectResponseDTO> getProjectById(@PathVariable Long id, Principal principal) {
+        Project project = projectService.findById(id);
+
+        if (!project.getTeamMembers().contains(userService.findByEmail(principal.getName()))) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        ProjectResponseDTO responseDTO  = new ProjectResponseDTO(project);
+        return ResponseEntity.ok(responseDTO);
     }
 }
