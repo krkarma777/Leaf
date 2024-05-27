@@ -1,6 +1,7 @@
 package com.leaf.web.controllers.api;
 
 import com.leaf.domain.dtos.project.ProjectCreateRequestDTO;
+import com.leaf.domain.dtos.project.ProjectEditRequestDTO;
 import com.leaf.domain.dtos.project.ProjectResponseDTO;
 import com.leaf.domain.entities.Project;
 import com.leaf.domain.services.ProjectService;
@@ -54,5 +55,13 @@ public class ProjectAPIController {
 
         ProjectResponseDTO responseDTO  = new ProjectResponseDTO(project);
         return ResponseEntity.ok(responseDTO);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> editProject(@PathVariable("id") Long id, @RequestBody ProjectEditRequestDTO requestDTO) {
+        Project project = projectService.findById(id);
+        project.edit(requestDTO);
+        projectService.save(project);
+        return ResponseEntity.ok().build();
     }
 }

@@ -1,6 +1,7 @@
 package com.leaf.domain.entities;
 
 import com.leaf.domain.dtos.project.ProjectCreateRequestDTO;
+import com.leaf.domain.dtos.project.ProjectEditRequestDTO;
 import com.leaf.domain.enums.PriorityType;
 import com.leaf.domain.enums.Status;
 import jakarta.persistence.*;
@@ -69,5 +70,14 @@ public class Project {
     }
 
     public Project() {
+    }
+
+    public void edit(ProjectEditRequestDTO requestDTO) {
+        this.projectName = requestDTO.getProjectName();
+        this.description = requestDTO.getDescription();
+        this.endDate = requestDTO.getEndDate();
+        this.category = requestDTO.getCategory();
+        this.priority = requestDTO.getPriority();
+        this.status = requestDTO.getStatus();
     }
 }
