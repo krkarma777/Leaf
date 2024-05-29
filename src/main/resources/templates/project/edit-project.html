@@ -87,13 +87,17 @@
         fetch(`/api/projects/${projectId}`)
             .then(response => response.json())
             .then(project => {
+                const now = new Date();
+                const startDate = new Date(project.startDate);
+
                 document.getElementById('projectId').value = project.id;
                 document.getElementById('projectName').value = project.projectName;
                 document.getElementById('category').value = project.category;
                 document.getElementById('description').value = project.description;
-                document.getElementById('startDate').value = new Date(project.startDate).toISOString().slice(0, 16);
+                document.getElementById('startDate').value = startDate.toISOString().slice(0, 16);
                 document.getElementById('endDate').value = new Date(project.endDate).toISOString().slice(0, 16);
                 document.getElementById('projectManager').value = project.projectManager.email;
+
                 project.teamMembers.forEach(member => {
                     const option = document.createElement('option');
                     option.value = member.id;
@@ -101,8 +105,14 @@
                     option.selected = true;
                     document.getElementById('teamMembers').appendChild(option);
                 });
+
                 document.getElementById('priority').value = project.priority;
                 document.getElementById('status').value = project.status;
+
+                // Disable editing of start date if it's in the future
+                if (startDate > now) {
+                    document.getElementById('startDate').setAttribute('disabled', 'disabled');
+                }
             });
 
         // Populate priority and status options
