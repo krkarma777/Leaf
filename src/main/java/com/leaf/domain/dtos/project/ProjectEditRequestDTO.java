@@ -11,6 +11,7 @@ public class ProjectEditRequestDTO {
 
     private String projectName;
     private String description;
+    private LocalDateTime startDate;
     private LocalDateTime endDate;
     private String category;
     private PriorityType priority;
