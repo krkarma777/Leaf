@@ -17,26 +17,31 @@
         <div class="col-md-6">
             <label for="projectName" class="form-label">Project Name</label>
             <input type="text" class="form-control" id="projectName" required>
+            <div class="invalid-feedback">Please enter a project name.</div>
         </div>
 
         <div class="col-md-6">
             <label for="category" class="form-label">Category</label>
             <input type="text" class="form-control" id="category" required>
+            <div class="invalid-feedback">Please enter a category.</div>
         </div>
 
         <div class="col-md-12">
             <label for="description" class="form-label">Description</label>
             <textarea class="form-control" id="description" rows="3" required></textarea>
+            <div class="invalid-feedback">Please enter a description.</div>
         </div>
 
         <div class="col-md-6">
             <label for="startDate" class="form-label">Start Date</label>
             <input type="datetime-local" class="form-control" id="startDate" required>
+            <div class="invalid-feedback">Please select a start date.</div>
         </div>
 
         <div class="col-md-6">
             <label for="endDate" class="form-label">End Date</label>
             <input type="datetime-local" class="form-control" id="endDate" required>
+            <div class="invalid-feedback">Please select an end date.</div>
         </div>
 
         <div class="col-md-6">
@@ -47,6 +52,7 @@
         <div class="col-md-6">
             <label for="teamMembers" class="form-label">Team Members</label>
             <select multiple class="form-select" id="teamMembers" required></select>
+            <div class="invalid-feedback">Please select at least one team member.</div>
         </div>
 
         <div class="col-md-6">
@@ -54,6 +60,7 @@
             <select class="form-select" id="priority" required>
                 <!-- Priority options will be populated by JavaScript -->
             </select>
+            <div class="invalid-feedback">Please select a priority.</div>
         </div>
 
         <div class="col-md-6">
@@ -61,6 +68,7 @@
             <select class="form-select" id="status" required>
                 <!-- Status options will be populated by JavaScript -->
             </select>
+            <div class="invalid-feedback">Please select a status.</div>
         </div>
 
         <div class="col-12">
@@ -115,17 +123,25 @@
             document.getElementById('status').appendChild(option);
         });
 
-        // Handle form submission
-        document.getElementById('editProjectForm').addEventListener('submit', function (event) {
+        // Form validation
+        const form = document.getElementById('editProjectForm');
+        form.addEventListener('submit', function (event) {
             event.preventDefault();
+            if (form.checkValidity() === false) {
+                event.stopPropagation();
+                form.classList.add('was-validated');
+                return;
+            }
 
             const projectData = {
                 projectName: document.getElementById('projectName').value,
                 category: document.getElementById('category').value,
                 description: document.getElementById('description').value,
+                startDate: document.getElementById('startDate').value,
                 endDate: document.getElementById('endDate').value,
                 priority: document.getElementById('priority').value,
-                status: document.getElementById('status').value
+                status: document.getElementById('status').value,
+                teamMembers: Array.from(document.getElementById('teamMembers').selectedOptions).map(option => option.value)
             };
 
             fetch('/api/projects/' + projectId, {
@@ -138,6 +154,8 @@
                 .then(response => {
                     if (response.ok) {
                         alert('Project updated successfully');
+                        form.reset();
+                        form.classList.remove('was-validated');
                     } else {
                         alert('Failed to update project');
                     }
