@@ -71,8 +71,11 @@ public class Project {
 
     public Project() {
     }
-
     public void edit(ProjectEditRequestDTO requestDTO) {
+        LocalDateTime now = LocalDateTime.now();
+        if (!requestDTO.getStartDate().isAfter(now)) {
+            this.startDate = requestDTO.getStartDate();
+        }
         this.projectName = requestDTO.getProjectName();
         this.description = requestDTO.getDescription();
         this.endDate = requestDTO.getEndDate();
