@@ -57,7 +57,7 @@ public class ProjectAPIController {
         return ResponseEntity.ok(responseDTO);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> editProject(@PathVariable("id") Long id, @RequestBody ProjectEditRequestDTO requestDTO) {
         Project project = projectService.findById(id);
         project.edit(requestDTO);

@@ -16,4 +16,14 @@ public class ProjectEditRequestDTO {
     private String category;
     private PriorityType priority;
     private Status status;
+
+    public ProjectEditRequestDTO(String projectName, String description, LocalDateTime startDate, LocalDateTime endDate, String category, PriorityType priority, Status status) {
+        this.projectName = projectName;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.category = category;
+        this.priority = priority;
+        this.status = status;
+    }
 }

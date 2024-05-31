@@ -11,7 +11,7 @@
 <nav th:insert="~{common/navbar :: navbar}"></nav>
 
 <div class="container mt-5">
-    <form id="editProjectForm" class="row g-3">
+    <form id="editProjectForm" class="row g-3 needs-validation" novalidate>
         <input type="hidden" id="projectId" th:value="${id}"/>
 
         <div class="col-md-6">
@@ -83,19 +83,24 @@
     document.addEventListener('DOMContentLoaded', function () {
         const projectId = document.getElementById('projectId').value;
 
+        const now = new Date().toISOString().slice(0, 16);
+        document.getElementById('startDate').setAttribute('min', now);
+        document.getElementById('endDate').setAttribute('min', now);
+
         // Fetch project details
         fetch(`/api/projects/${projectId}`)
             .then(response => response.json())
             .then(project => {
                 const now = new Date();
                 const startDate = new Date(project.startDate);
+                const endDate = new Date(project.endDate);
 
                 document.getElementById('projectId').value = project.id;
                 document.getElementById('projectName').value = project.projectName;
                 document.getElementById('category').value = project.category;
                 document.getElementById('description').value = project.description;
                 document.getElementById('startDate').value = startDate.toISOString().slice(0, 16);
-                document.getElementById('endDate').value = new Date(project.endDate).toISOString().slice(0, 16);
+                document.getElementById('endDate').value = endDate.toISOString().slice(0, 16);
                 document.getElementById('projectManager').value = project.projectManager.email;
 
                 project.teamMembers.forEach(member => {
@@ -109,9 +114,12 @@
                 document.getElementById('priority').value = project.priority;
                 document.getElementById('status').value = project.status;
 
-                // Disable editing of start date if it's in the future
-                if (startDate > now) {
+                // Disable editing of start date and end date if they are in the past
+                if (startDate < now) {
                     document.getElementById('startDate').setAttribute('disabled', 'disabled');
+                }
+                if (endDate < now) {
+                    document.getElementById('endDate').setAttribute('disabled', 'disabled');
                 }
             });
 
@@ -164,10 +172,11 @@
                 .then(response => {
                     if (response.ok) {
                         alert('Project updated successfully');
-                        form.reset();
-                        form.classList.remove('was-validated');
+                        window.location.reload();
                     } else {
-                        alert('Failed to update project');
+                        response.json().then(data => {
+                            alert('Failed to update project: ' + data.message);
+                        }).catch(() => alert('Failed to update project'));
                     }
                 })
                 .catch(() => alert('Failed to update project'));

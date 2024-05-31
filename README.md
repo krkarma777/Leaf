@@ -48,38 +48,6 @@ Welcome to Project Leaf, where simplicity meets functionality. Our cutting-edge 
    gradle bootRun
    ```
 
-## Running Tests
-
-To ensure everything is working correctly, follow these steps to run the tests:
-
-1. **Set Up Cypress**:
-   - Make sure Cypress is installed. You can add it as a dev dependency if it's not already included.
-   ```bash
-   npm install cypress --save-dev
-   ```
-
-2. **Configure Cypress**:
-   - Ensure you have the Cypress configuration in place. Your `cypress.config.js` should look like this:
-   ```javascript
-   const { defineConfig } = require('cypress');
-
-   module.exports = defineConfig({
-       e2e: {
-           setupNodeEvents(on, config) {
-               // implement node event listeners here
-           },
-           baseUrl: 'http://localhost:8090',
-           specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}'
-       }
-   });
-   ```
-
-3. **Run Cypress Tests**:
-   - Open Cypress and run the tests.
-   ```bash
-   npx cypress open
-   ```
-
 ## Dive Deeper
 
 Check our [Wiki](https://github.com/krkarma777/Leaf/wiki) for detailed documentation, user guides, and more about our features!
