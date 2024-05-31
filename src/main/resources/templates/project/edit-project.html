@@ -164,8 +164,7 @@
                 .then(response => {
                     if (response.ok) {
                         alert('Project updated successfully');
-                        form.reset();
-                        form.classList.remove('was-validated');
+                        window.location.reload();
                     } else {
                         alert('Failed to update project');
                     }
