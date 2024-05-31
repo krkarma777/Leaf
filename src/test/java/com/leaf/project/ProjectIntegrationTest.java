@@ -2,6 +2,7 @@ package com.leaf.project;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.leaf.domain.dtos.project.ProjectCreateRequestDTO;
+import com.leaf.domain.dtos.project.ProjectEditRequestDTO;
 import com.leaf.domain.entities.Project;
 import com.leaf.domain.entities.User;
 import com.leaf.domain.enums.PriorityType;
@@ -22,6 +23,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -89,5 +91,38 @@ public class ProjectIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestDTO)))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @WithMockUser(username = "manager@example.com")
+    void testEditProject_ValidInput() throws Exception {
+        // Create initial project
+        Project project = new Project(
+                "Initial Project", "Initial Description",
+                LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(10),
+                manager, "Initial Category", PriorityType.LOW, Status.IN_PROGRESS
+        );
+        project = projectRepository.save(project);
+
+        // Prepare edit request
+        ProjectEditRequestDTO requestDTO = new ProjectEditRequestDTO(
+                "Updated Project", "Updated Description",
+                LocalDateTime.now().plusDays(2), LocalDateTime.now().plusDays(12),
+                "Updated Category", PriorityType.HIGH, Status.COMPLETED
+        );
+
+        // Perform the edit request
+        mockMvc.perform(put("/api/projects/" + project.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDTO)))
+                .andExpect(status().isOk());
+
+        // Verify the changes
+        Project updatedProject = projectRepository.findById(project.getId()).orElseThrow();
+        assertEquals("Updated Project", updatedProject.getProjectName());
+        assertEquals("Updated Description", updatedProject.getDescription());
+        assertEquals("Updated Category", updatedProject.getCategory());
+        assertEquals(PriorityType.HIGH, updatedProject.getPriority());
+        assertEquals(Status.COMPLETED, updatedProject.getStatus());
     }
 }
