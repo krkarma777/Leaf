@@ -71,6 +71,18 @@ public class Project {
 
     public Project() {
     }
+
+    public Project(String projectName, String description, LocalDateTime startDate, LocalDateTime endDate, User projectManager, String category, PriorityType priority, Status status) {
+        this.projectName = projectName;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.projectManager = projectManager;
+        this.category = category;
+        this.priority = priority;
+        this.status = status;
+    }
+
     public void edit(ProjectEditRequestDTO requestDTO) {
         LocalDateTime now = LocalDateTime.now();
         if (!requestDTO.getStartDate().isAfter(now)) {
