@@ -119,10 +119,19 @@
                         loadProjects(0);
                         const deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
                         deleteModal.hide();
-                        window.location.reload();
+                    } else if (xhr.status >= 200 && xhr.status < 300) {
+                        const response = JSON.parse(xhr.responseText);
+                        loadProjects(0);
+                        const deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
+                        deleteModal.hide();
                     } else {
-                        const errorMessage = JSON.parse(xhr.responseText).message;
-                        alert(errorMessage);
+                        try {
+                            const errorMessage = JSON.parse(xhr.responseText).message;
+                            alert(errorMessage);
+                        } catch (e) {
+                            console.error('Error parsing JSON response:', e);
+                            alert('An error occurred while processing your request.');
+                        }
                     }
                 };
                 xhr.onerror = function () {
