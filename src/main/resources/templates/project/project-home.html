@@ -79,19 +79,25 @@
                     });
                 });
 
-                document.querySelector('.pagination a.prev').addEventListener('click', function (e) {
-                    e.preventDefault();
-                    if (!this.parentElement.classList.contains('disabled')) {
-                        loadProjects(data.number - 1);
-                    }
-                });
+                const prevLink = document.querySelector('.pagination a.prev');
+                if (prevLink) {
+                    prevLink.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        if (!this.parentElement.classList.contains('disabled')) {
+                            loadProjects(data.number - 1);
+                        }
+                    });
+                }
 
-                document.querySelector('.pagination a.next').addEventListener('click', function (e) {
-                    e.preventDefault();
-                    if (!this.parentElement.classList.contains('disabled')) {
-                        loadProjects(data.number + 1);
-                    }
-                });
+                const nextLink = document.querySelector('.pagination a.next');
+                if (nextLink) {
+                    nextLink.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        if (!this.parentElement.classList.contains('disabled')) {
+                            loadProjects(data.number + 1);
+                        }
+                    });
+                }
             }
 
             function showDeleteModal(projectId) {
@@ -113,8 +119,10 @@
                         loadProjects(0);
                         const deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteModal'));
                         deleteModal.hide();
+                        window.location.reload();
                     } else {
-                        console.error('Error:', xhr.statusText);
+                        const errorMessage = JSON.parse(xhr.responseText).message;
+                        alert(errorMessage);
                     }
                 };
                 xhr.onerror = function () {
