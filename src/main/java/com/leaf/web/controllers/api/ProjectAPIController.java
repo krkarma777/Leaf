@@ -20,6 +20,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,11 +41,16 @@ public class ProjectAPIController {
     }
 
     @GetMapping("/my-projects")
-    public ResponseEntity<Page<Project>> getProjectsByUserEmail(
+    public ResponseEntity<Map<String, Object>> getProjectsByUserEmail(
             Principal principal,
             @PageableDefault(sort = "startDate", direction = Sort.Direction.DESC) Pageable pageable
     ) {
-        return ResponseEntity.ok(projectService.findByPrincipal(principal, pageable));
+        Page<Project> projects = projectService.findByPrincipal(principal, pageable);
+        List<ProjectResponseDTO> list = projects.getContent().stream().map(ProjectResponseDTO::new).toList();
+
+        return ResponseEntity.ok(
+                Map.of("content", list, "perPage", pageable.getPageNumber(), "totalPages", projects.getTotalPages())
+        );
     }
 
     @GetMapping("/{id}")
