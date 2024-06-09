@@ -77,6 +77,6 @@ public class ProjectAPIController {
     public ResponseEntity<?> deleteProject(@PathVariable("id") Long id, Principal principal) {
         User user = userService.findByEmail(principal.getName());
         projectService.deleteById(id, user);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }
