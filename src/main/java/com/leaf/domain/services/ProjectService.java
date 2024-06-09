@@ -44,4 +44,11 @@ public class ProjectService {
     public Project findById(Long id) {
         return projectRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project not found"));
     }
+
+    public void deleteById(Long id, User user) {
+        if (!findById(id).getProjectManager().equals(user)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You are not authorized to delete this project.");
+        }
+        projectRepository.deleteById(id);
+    }
 }
