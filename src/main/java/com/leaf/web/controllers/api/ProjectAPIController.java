@@ -4,6 +4,7 @@ import com.leaf.domain.dtos.project.ProjectCreateRequestDTO;
 import com.leaf.domain.dtos.project.ProjectEditRequestDTO;
 import com.leaf.domain.dtos.project.ProjectResponseDTO;
 import com.leaf.domain.entities.Project;
+import com.leaf.domain.entities.User;
 import com.leaf.domain.services.ProjectService;
 import com.leaf.domain.services.UserService;
 import com.leaf.web.utils.ValidationErrorHandler;
@@ -53,7 +54,7 @@ public class ProjectAPIController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        ProjectResponseDTO responseDTO  = new ProjectResponseDTO(project);
+        ProjectResponseDTO responseDTO = new ProjectResponseDTO(project);
         return ResponseEntity.ok(responseDTO);
     }
 
@@ -62,6 +63,13 @@ public class ProjectAPIController {
         Project project = projectService.findById(id);
         project.edit(requestDTO);
         projectService.save(project);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProject(@PathVariable("id") Long id, Principal principal) {
+        User user = userService.findByEmail(principal.getName());
+        projectService.deleteById(id, user);
         return ResponseEntity.ok().build();
     }
 }
