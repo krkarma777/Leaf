@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaf</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1d1f21;
+            color: #c5c6c7;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .header, .navbar, .footer {
+            background-color: #2ecc71;
+            color: white;
+        }
+        .header h1, .footer p {
+            margin: 0;
+            padding: 15px 0;
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .navbar {
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .navbar a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            animation: slideIn 1s ease-in-out;
+            transition: color 0.3s;
+        }
+        .navbar a:hover {
+            color: #a3e4d7;
+        }
+        .container h2 {
+            color: #2ecc71;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .feature {
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+        @keyframes fadeInUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: #1d1f21;
+        }
+        #leafCanvas {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="canvas-container">
+    <canvas id="leafCanvas"></canvas>
+</div>
+<header th:insert="~{common/header :: header}" class="header">
+    <h1>Welcome to Project Leaf</h1>
+</header>
+<nav th:insert="~{common/navbar :: navbar}" class="navbar d-flex justify-content-center">
+    <a href="#why">Why Project Leaf?</a>
+    <a href="#features">Key Features</a>
+</nav>
+
+<div class="container mt-5">
+    <h2>Welcome to Project Leaf</h2>
+    <p>Where simplicity meets functionality. Our cutting-edge platform merges the robustness of Slack, Jira, and Notion, delivering an all-in-one solution for dynamic team collaboration and project management.</p>
+
+    <h2 id="why">Why Project Leaf?</h2>
+    <div class="feature">
+        <h3>All-in-One Platform</h3>
+        <p>Combining communication, task management, and documentation in a sleek, user-friendly interface.</p>
+    </div>
+    <div class="feature">
+        <h3>Effortlessly Stylish</h3>
+        <p>Engage with a design that's both attractive and intuitive, supporting both light and dark themes.</p>
+    </div>
+    <div class="feature">
+        <h3>Enhanced Productivity</h3>
+        <p>With integrated tools designed for efficiency, your team can achieve more in less time.</p>
+    </div>
+    <div class="feature">
+        <h3>Secured and Reliable</h3>
+        <p>Trust in our commitment to your data's security and integrity with advanced encryption and backup systems.</p>
+    </div>
+
+    <h2 id="features">Key Features</h2>
+    <div class="feature">
+        <h3>Instant Messaging and Calls</h3>
+        <p>Seamless communication via text, voice, or video.</p>
+    </div>
+    <div class="feature">
+        <h3>Task and Project Management</h3>
+        <p>From idea to execution, manage and track your projects with ease.</p>
+    </div>
+    <div class="feature">
+        <h3>Real-Time Collaboration</h3>
+        <p>Edit documents together in real-time, with changes synced across all team members.</p>
+    </div>
+    <div class="feature">
+        <h3>Expandable and Integrative</h3>
+        <p>Utilize our API for custom integrations, enhancing your workflow.</p>
+    </div>
+</div>
+
+<footer th:insert="~{common/footer :: footer}" class="footer">
+    <p>&copy; 2024 Project Leaf. All rights reserved.</p>
+</footer>
+</body>
+</html>
