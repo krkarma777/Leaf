@@ -1,11 +1,7 @@
 package com.leaf.web.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Controller
 public class HomeController {
@@ -23,5 +19,10 @@ public class HomeController {
     @GetMapping("/register")
     public String register() {
         return "register";
+    }
+
+    @GetMapping("/index")
+    public String index() {
+        return "index";
     }
 }
