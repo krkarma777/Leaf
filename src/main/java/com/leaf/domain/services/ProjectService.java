@@ -22,33 +22,47 @@ public class ProjectService {
     private final ProjectRepository projectRepository;
     private final UserService userService;
 
-    public Project save(Project project) {
+    public Project saveProject(Project project) {
         return projectRepository.save(project);
     }
 
-    public Project save(ProjectCreateRequestDTO requestDTO, Principal principal) {
-        User projectManager = userService.findByEmail(principal.getName());
-
-        Set<User> teamMembers = requestDTO.getTeamMemberIds().stream().map(userService::findById).collect(Collectors.toSet());
-        teamMembers.add(projectManager);
+    public Project createProject(ProjectCreateRequestDTO requestDTO, Principal principal) {
+        User projectManager = getUserFromPrincipal(principal);
+        Set<User> teamMembers = getTeamMembersFromRequest(requestDTO, projectManager);
 
         return projectRepository.save(new Project(requestDTO, projectManager, teamMembers));
     }
 
-    public Page<Project> findByPrincipal(Principal principal, Pageable pageable) {
-        if (principal == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You are not logged in");
-        User user = userService.findByEmail(principal.getName());
+    public Page<Project> findProjectsByPrincipal(Principal principal, Pageable pageable) {
+        User user = getUserFromPrincipal(principal);
         return projectRepository.findProjectsByUser(user, pageable);
     }
 
-    public Project findById(Long id) {
-        return projectRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project not found"));
+    public Project findProjectById(Long id) {
+        return projectRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project not found"));
     }
 
-    public void deleteById(Long id, User user) {
-        if (!findById(id).getProjectManager().equals(user)) {
+    public void deleteProjectById(Long id, User user) {
+        Project project = findProjectById(id);
+        if (!project.getProjectManager().equals(user)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You are not authorized to delete this project.");
         }
         projectRepository.deleteById(id);
+    }
+
+    private User getUserFromPrincipal(Principal principal) {
+        if (principal == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You are not logged in");
+        }
+        return userService.findByEmail(principal.getName());
+    }
+
+    private Set<User> getTeamMembersFromRequest(ProjectCreateRequestDTO requestDTO, User projectManager) {
+        Set<User> teamMembers = requestDTO.getTeamMemberIds().stream()
+                .map(userService::findById)
+                .collect(Collectors.toSet());
+        teamMembers.add(projectManager);
+        return teamMembers;
     }
 }
