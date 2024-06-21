@@ -37,7 +37,7 @@ public class ProjectAPIController {
             return ValidationErrorHandler.handleValidationErrors(bindingResult);
         }
 
-        return ResponseEntity.ok(projectService.save(requestDTO, principal));
+        return ResponseEntity.ok(projectService.createProject(requestDTO, principal));
     }
 
     @GetMapping("/my-projects")
@@ -45,7 +45,7 @@ public class ProjectAPIController {
             Principal principal,
             @PageableDefault(sort = "startDate", direction = Sort.Direction.DESC) Pageable pageable
     ) {
-        Page<Project> projects = projectService.findByPrincipal(principal, pageable);
+        Page<Project> projects = projectService.findProjectsByPrincipal(principal, pageable);
         List<ProjectResponseDTO> list = projects.getContent().stream().map(ProjectResponseDTO::new).toList();
 
         return ResponseEntity.ok(
@@ -55,7 +55,7 @@ public class ProjectAPIController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProjectResponseDTO> getProjectById(@PathVariable Long id, Principal principal) {
-        Project project = projectService.findById(id);
+        Project project = projectService.findProjectById(id);
 
         if (!project.getTeamMembers().contains(userService.findByEmail(principal.getName()))) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -67,16 +67,16 @@ public class ProjectAPIController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> editProject(@PathVariable("id") Long id, @RequestBody ProjectEditRequestDTO requestDTO) {
-        Project project = projectService.findById(id);
+        Project project = projectService.findProjectById(id);
         project.edit(requestDTO);
-        projectService.save(project);
+        projectService.saveProject(project);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProject(@PathVariable("id") Long id, Principal principal) {
         User user = userService.findByEmail(principal.getName());
-        projectService.deleteById(id, user);
+        projectService.deleteProjectById(id, user);
         return ResponseEntity.noContent().build();
     }
 }
